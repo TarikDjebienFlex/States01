@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   currentState="login"
+			   >
+	
+	<fx:Declarations>
+		<s:Bounce id="bounce" />
+		<s:Power id="power" easeInFraction=".15" exponent="4" />
+	</fx:Declarations>
+
+	
+	<s:transitions>
+		<s:Transition fromState="login" toState="register">
+			<s:Sequence>
+				<s:Resize target="{ formPanel }" duration="500" easer="{ power }" />
+				<s:AddAction targets="{ [civ_fh, add_fh, prenom_fi, nom_fi, rue_fi, ville_fi] }" />
+			</s:Sequence>
+		</s:Transition>		
+		<s:Transition fromState="register" toState="login">
+			<s:Sequence>
+				<s:RemoveAction targets="{ [civ_fh, add_fh, prenom_fi, nom_fi, rue_fi, ville_fi] }" />
+				<s:Resize target="{ formPanel }" duration="500" easer="{ power }" />
+			</s:Sequence>
+		</s:Transition>		
+	</s:transitions>
+	
+	<s:states>
+		<s:State name="login" />
+		<s:State name="register" />
+	</s:states>
+	
+	
+	<s:Panel id="formPanel"
+			 horizontalCenter="0" verticalCenter="0"
+			 title.login="Authentification"
+			 title.register="Créer un compte"
+			 width.login="25%" width.register="40%"
+			 >
+		
+		<mx:Form width="100%" includeIn="login, register">
+			
+			<mx:FormHeading label="Veuillez entrez vos identifiants" includeIn="login" />
+			
+			<mx:FormItem width="100%" label="Utilisateur" includeIn="login, register">
+				<s:TextInput width="100%" />
+			</mx:FormItem>
+			<mx:FormItem width="100%" label="Mot de passe" includeIn="login, register">
+				<s:TextInput width="100%" displayAsPassword="true" />
+			</mx:FormItem>
+			
+			
+			<mx:FormHeading id="civ_fh" label="Civilité" includeIn="register" />
+			<mx:FormItem id="prenom_fi" label="Prénom" width="100%" includeIn="register" >
+				<s:TextInput width="100%" itemCreationPolicy="immediate" includeIn="register" />
+			</mx:FormItem>
+			
+			<mx:FormItem id="nom_fi" label="Nom" width="100%" includeIn="register">
+				<s:TextInput width="100%" itemCreationPolicy="immediate" includeIn="register"/>
+			</mx:FormItem>
+			
+			<mx:FormHeading id="add_fh" label="Adresse" includeIn="register"/>
+			<mx:FormItem id="rue_fi" width="100%" includeIn="register" label="Rue, N°">
+				<s:TextInput width="100%" itemCreationPolicy="immediate" includeIn="register"/>
+			</mx:FormItem>
+			
+			<mx:FormItem id="ville_fi" label="Ville / code postal" direction="horizontal" width="100%" includeIn="register">
+				<s:TextInput width="100%" itemCreationPolicy="immediate" includeIn="register"/>
+				<s:TextInput width="100%" itemCreationPolicy="immediate" includeIn="register"/>
+			</mx:FormItem>
+			
+		</mx:Form>
+		
+		<s:controlBarContent>
+			<s:Button label="Login" click=" currentState = 'login'" />
+			<mx:Spacer width="100%" />
+			<mx:LinkButton label="Create an account" click=" currentState='register' " />
+		</s:controlBarContent>
+	</s:Panel>
+	
+	
+</s:Application>
